@@ -1,53 +1,21 @@
 import React from 'react';
-/*import { useState } from "react";*/
-import "./App.css";
+import './App.css';
+import Header from './components/Header';
+import Navbar from './components/Navbar';
+import Profile from './components/Profile';
 import SignUp from "./SignUp";
+import { BrowserRouter } from 'react-router-dom';
 
 const App = () => {
-  /*  const [logInData, setLogInData] = useState(initialData);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit(logInData);
-  };
- */
   return (
-    <div className="App">
-      {/*    <form onSubmit={handleSubmit}>
-        <label>
-          Enter your nickname
-          <input
-            value={logInData.nickname}
-            onChange={(e) =>
-              setLogInData({ ...logInData, nickname: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          Enter your email
-          <input
-            type="email"
-            value={logInData.email}
-            onChange={(e) =>
-              setLogInData({ ...logInData, email: e.target.value })
-            }
-          />
-        </label>
-        <label>
-          Enter your password
-          <input
-            type="password"
-            value={logInData.password}
-            onChange={(e) =>
-              setLogInData({ ...logInData, password: e.target.value })
-            }
-          />
-        </label>
-        <button>Submit</button>
-      </form> */}
+    <BrowserRouter>
+    <div className="app-wrapper">
+      <Header />
+      <Navbar />
+      <Profile />
       <SignUp />
-    </div>
-  );
-};
+      </div>
+    </BrowserRouter>);
+}
 
 export default App;
