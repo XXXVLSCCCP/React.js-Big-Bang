@@ -4,7 +4,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
+/* import MenuIcon from "@material-ui/icons/Menu"; */
 import AccountCircle from "@material-ui/icons/AccountCircle";
 /* import Switch from "@material-ui/core/Switch"; */
 /* import FormControlLabel from "@material-ui/core/FormControlLabel"; */
@@ -23,6 +23,15 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     flexGrow: 1,
+  },
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+  },
+  text: {
+    fontSize: "1.3rem",
+    fontWeight: "bold",
+    marginLeft: "0.5rem",
   },
 }));
 
@@ -60,19 +69,21 @@ export default function MenuAppBar() {
       </FormGroup>
       <AppBar position="static">
         <Toolbar>
-          <Link to={`/`}>
+          <Link to={`/`} className={classes.link}>
             <IconButton
               edge="start"
               className={classes.menuButton}
               color="inherit"
               aria-label="menu"
             >
-              <LanguageTwoToneIcon />
-              <text>Big Bang</text>
+              <LanguageTwoToneIcon style={{ fontSize: "2rem" }} />
+              <text className={classes.text}>Big Bang</text>
             </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>
-            <Link to={`/users`}>Найти собеседника</Link>
+            <Link to={`/users`} className={classes.link}>
+              Найти собеседника
+            </Link>
           </Typography>
           {auth && (
             <div>
@@ -100,7 +111,7 @@ export default function MenuAppBar() {
                 open={open}
                 onClose={handleClose}
               >
-                <Link to={`/signup`}>
+                <Link to={`/signup`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Sign up</MenuItem>
                 </Link>
 
