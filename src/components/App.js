@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignUp from "./SignUp";
+import SignIn from "./SignIn";
 import Header from "./Header";
 
 const App = () => {
@@ -7,22 +8,12 @@ const App = () => {
     <Router>
       <Header />
       <div>
-        {/*         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/signup">Sign up</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav> */}
         <Switch>
           <Route path="/signup">
             <SignUp />
+          </Route>
+          <Route path="/signin">
+            <SignIn />
           </Route>
           <Route path="/users">
             <Users />

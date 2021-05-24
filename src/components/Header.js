@@ -77,7 +77,7 @@ export default function MenuAppBar() {
               aria-label="menu"
             >
               <LanguageTwoToneIcon style={{ fontSize: "2rem" }} />
-              <text className={classes.text}>Big Bang</text>
+              <span className={classes.text}>Big Bang</span>
             </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>
@@ -115,7 +115,9 @@ export default function MenuAppBar() {
                   <MenuItem onClick={handleClose}>Sign up</MenuItem>
                 </Link>
 
-                <MenuItem onClick={handleClose}>Sign in</MenuItem>
+                <Link to={`/signin`} className={classes.link}>
+                  <MenuItem onClick={handleClose}>Sign in</MenuItem>
+                </Link>
               </Menu>
             </div>
           )}
