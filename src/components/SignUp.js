@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -55,8 +55,38 @@ function SignUp() {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [formValid, setFormValid] = useState(false);
 
   const classes = useStyles();
+
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+    const re =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    if (!re.test(String(email).toLowerCase())) {
+      setEmailError("Неккоректный e-mail");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 3 || e.target.value.length > 8) {
+      setPasswordError("Пароль должен содержать от 3 до 8 символов");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  /*   useEffect(() => {
+    if (!emailError || !passwordError) {
+      formValid;
+    }
+  }),
+    [emailError, passwordError]; */
 
   return (
     <Container component="main" maxWidth="xs">
@@ -80,6 +110,7 @@ function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
+                value={firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -91,9 +122,11 @@ function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
+                value={lastName}
               />
             </Grid>
             <Grid item xs={12}>
+              {emailError && <div style={{ color: "red" }}>{emailError}</div>}
               <TextField
                 variant="outlined"
                 required
@@ -102,9 +135,14 @@ function SignUp() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
+                value={email}
+                onChange={(e) => emailHandler(e)}
               />
             </Grid>
             <Grid item xs={12}>
+              {passwordError && (
+                <div style={{ color: "red" }}>{passwordError}</div>
+              )}
               <TextField
                 variant="outlined"
                 required
@@ -114,6 +152,8 @@ function SignUp() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => passwordHandler(e)}
               />
             </Grid>
           </Grid>
@@ -123,6 +163,7 @@ function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={!formValid}
           >
             Sign Up
           </Button>
