@@ -77,7 +77,7 @@ export default function MenuAppBar() {
               aria-label="menu"
             >
               <LanguageTwoToneIcon style={{ fontSize: "2rem" }} />
-              <span className={classes.text}>Big Bang</span>
+              <span className={classes.text}>BigBang</span>
             </IconButton>
           </Link>
           <Typography variant="h6" className={classes.title}>

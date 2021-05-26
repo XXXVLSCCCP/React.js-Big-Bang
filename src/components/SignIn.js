@@ -18,7 +18,7 @@ function Copyright() {
     <Typography variant="body2" color="textSecondary" align="center">
       {"Copyright © "}
       <Link style={{ textDecoration: "none", color: "inherit" }}>
-        Big Bang
+        BigBang
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
