@@ -5,6 +5,7 @@ import Header from "./Header";
 import Profile from "./Profile";
 import { Provider } from "react-redux";
 import { store } from "../store/index";
+import { Link } from "react-router-dom";
 
 const App = () => {
   return (
@@ -38,7 +39,14 @@ const App = () => {
       <SignUp />
     </div> */
 function Home() {
-  return <h2>Home</h2>;
+  return (
+    <>
+      <h2>Home</h2>
+      <button>
+        <Link to={`/users`}>Найти собеседника</Link>
+      </button>
+    </>
+  );
 }
 
 function Users() {
