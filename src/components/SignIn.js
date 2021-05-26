@@ -54,6 +54,13 @@ const useStyles = makeStyles((theme) => ({
 function SignIn() {
   const classes = useStyles();
 
+  const res = fetch("https://jsonplaceholder.typicode.com/users")
+    .then((response) => response.json())
+    .then((json) => console.log(json));
+  if (!res.ok) {
+    throw new Error("Проверьте URL");
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -64,7 +71,7 @@ function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form}>
           <TextField
             variant="outlined"
             margin="normal"
@@ -100,12 +107,12 @@ function SignIn() {
           >
             Sign In
           </Button>
-          <Grid container>
-            <Grid item xs>
+          <Grid container justify="flex-end">
+            {/*          <Grid item xs>
               <Link href="#" className={classes.link}>
                 Forgot password?
               </Link>
-            </Grid>
+            </Grid> */}
             <Grid item>
               <Link to={`/signup`} className={classes.link}>
                 Don't have an account? Sign Up

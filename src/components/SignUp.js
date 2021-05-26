@@ -51,8 +51,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignUp() {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -110,7 +108,6 @@ function SignUp() {
                 id="firstName"
                 label="First Name"
                 autoFocus
-                value={firstName}
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -122,7 +119,6 @@ function SignUp() {
                 label="Last Name"
                 name="lastName"
                 autoComplete="lname"
-                value={lastName}
               />
             </Grid>
             <Grid item xs={12}>
@@ -163,7 +159,6 @@ function SignUp() {
             variant="contained"
             color="primary"
             className={classes.submit}
-            disabled={!formValid}
           >
             Sign Up
           </Button>
