@@ -37,16 +37,24 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
+const cards = async (url = "https://jsonplaceholder.typicode.com/users") => {
+  const response = await fetch(url);
+  if (!response.ok) {
+    throw new Error(`Error ${url}, status ${response.status}`);
+  }
+  return await response.json();
+};
+
+cards().then((data) => console.log(data));
 
 export default function Users() {
   const classes = useStyles();
+
   return (
     <>
       <Container className={classes.cardGrid} maxWidth="md">
-        {/* End hero unit */}
         <Grid container spacing={4}>
-          {cards.map((card) => (
+          {Object.keys(cards).map((card) => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
@@ -56,19 +64,13 @@ export default function Users() {
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Heading
+                    {cards.name}
                   </Typography>
-                  <Typography>
-                    This is a media card. You can use this section to describe
-                    the content.
-                  </Typography>
+                  <Typography>{cards.username}</Typography>
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
-                    View
-                  </Button>
-                  <Button size="small" color="primary">
-                    Edit
+                    More
                   </Button>
                 </CardActions>
               </Card>
