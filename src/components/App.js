@@ -5,6 +5,7 @@ import Header from "./Header";
 import Profile from "./Profile";
 import Users from "./Users";
 import Main from "./Main";
+import Example from "./Example";
 
 const App = () => {
   return (
@@ -23,8 +24,11 @@ const App = () => {
         <Route path="/users">
           <Users />
         </Route>
-        <Route path="/">
+        {/* <Route path="/">
           <Main />
+        </Route> */}
+        <Route path="/" name="Example" component={Example}>
+          <Example />
         </Route>
       </Switch>
     </Router>
