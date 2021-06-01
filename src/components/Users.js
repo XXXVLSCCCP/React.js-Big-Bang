@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -37,24 +37,37 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = async (url = "https://jsonplaceholder.typicode.com/users") => {
-  const response = await fetch(url);
-  if (!response.ok) {
-    throw new Error(`Error ${url}, status ${response.status}`);
-  }
-  return await response.json();
-};
-
-cards().then((data) => console.log(data));
-
 export default function Users() {
   const classes = useStyles();
+
+  const [data, setData] = useState([]);
+
+  /*   const getCards = async (
+    url = "https://jsonplaceholder.typicode.com/users"
+  ) => {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Error ${url}, status ${response.status}`);
+    }
+
+    return await response.json();
+  }; */
+
+  useEffect(() => {
+    loadCards();
+  }, []);
+
+  const loadCards = async () => {
+    await fetch("https://jsonplaceholder.typicode.com/users")
+      .then((response) => response.json())
+      .then((receivedData) => setData(receivedData));
+  };
 
   return (
     <>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {Object.keys(cards).map((card) => (
+          {data.map((card) => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
@@ -64,9 +77,9 @@ export default function Users() {
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {cards.name}
+                    {card.name}
                   </Typography>
-                  <Typography>{cards.username}</Typography>
+                  <Typography>{card.username}</Typography>
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
