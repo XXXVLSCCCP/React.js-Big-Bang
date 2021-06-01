@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -40,34 +41,23 @@ const useStyles = makeStyles((theme) => ({
 export default function Users() {
   const classes = useStyles();
 
-  const [data, setData] = useState([]);
-
-  /*   const getCards = async (
-    url = "https://jsonplaceholder.typicode.com/users"
-  ) => {
-    const response = await fetch(url);
-    if (!response.ok) {
-      throw new Error(`Error ${url}, status ${response.status}`);
-    }
-
-    return await response.json();
-  }; */
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    loadCards();
+    loadUsers();
   }, []);
 
-  const loadCards = async () => {
+  const loadUsers = async () => {
     await fetch("https://jsonplaceholder.typicode.com/users")
       .then((response) => response.json())
-      .then((receivedData) => setData(receivedData));
+      .then((receivedUsers) => setUsers(receivedUsers));
   };
 
   return (
     <>
       <Container className={classes.cardGrid} maxWidth="md">
         <Grid container spacing={4}>
-          {data.map((card) => (
+          {users.map((card) => (
             <Grid item key={card} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
@@ -83,7 +73,15 @@ export default function Users() {
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
-                    More
+                    <Link
+                      to={{
+                        pathname: `/users/:id${card.id}`,
+                        userName: `${card.name}`,
+                      }}
+                      className={classes.link}
+                    >
+                      More
+                    </Link>
                   </Button>
                 </CardActions>
               </Card>
