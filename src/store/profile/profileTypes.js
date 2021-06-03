@@ -1,1 +1,1 @@
-export const CHANGE_NAME = "PROFILE::CHANGE_NAME";
+export const SET_PROFILE = "PROFILE::SET_PROFILE";

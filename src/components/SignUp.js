@@ -56,6 +56,8 @@ function SignUp() {
   const [passwordError, setPasswordError] = useState("");
   const [formValid, setFormValid] = useState(false);
 
+  /*   const dispatch = useDispatch(); */
+
   const classes = useStyles();
 
   /*   const sendUserData = async (url, userData) => {
@@ -91,6 +93,17 @@ function SignUp() {
       setPasswordError("");
     }
   };
+
+  /*   const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(
+      login({
+        email: email,
+        password: password,
+        loggedIn: true,
+      })
+    );
+  }; */
 
   /*   useEffect(() => {
     if (!emailError || !passwordError) {

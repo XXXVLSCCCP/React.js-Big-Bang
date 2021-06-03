@@ -3,6 +3,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.CHANGE_NAME = void 0;
-var CHANGE_NAME = "PROFILE::CHANGE_NAME";
-exports.CHANGE_NAME = CHANGE_NAME;
+exports.SET_PROFILE = void 0;
+var SET_PROFILE = "PROFILE::SET_PROFILE";
+exports.SET_PROFILE = SET_PROFILE;

@@ -3,15 +3,15 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.changeName = void 0;
+exports.setProfile = void 0;
 
 var _profileTypes = require("./profileTypes");
 
-var changeName = function changeName(newName) {
+var setProfile = function setProfile(payload) {
   return {
-    type: _profileTypes.CHANGE_NAME,
-    name: newName
+    type: _profileTypes.SET_PROFILE,
+    payload: payload
   };
 };
 
-exports.changeName = changeName;
+exports.setProfile = setProfile;

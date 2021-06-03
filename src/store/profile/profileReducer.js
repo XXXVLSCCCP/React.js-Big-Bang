@@ -1,15 +1,15 @@
-import { CHANGE_NAME } from "./profileTypes";
+import { SET_PROFILE } from "./profileTypes";
 
-const initialName = {
-  name: "no name",
+const initialState = {
+  profile: null,
 };
 
-const profileReducer = (state = initialName, action) => {
+const profileReducer = (state = initialState, action) => {
   switch (action.type) {
-    case CHANGE_NAME: {
+    case SET_PROFILE: {
       return {
         ...state,
-        name: action.name,
+        profile: action.payload,
       };
     }
     default:

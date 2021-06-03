@@ -122,6 +122,10 @@ export default function MenuAppBar() {
                 <Link to={`/profile`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>
+
+                <Link to={`/signin`} className={classes.link}>
+                  <MenuItem onClick={handleClose}>Log out</MenuItem>
+                </Link>
               </Menu>
             </div>
           )}

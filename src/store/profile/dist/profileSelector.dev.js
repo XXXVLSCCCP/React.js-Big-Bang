@@ -3,10 +3,10 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.profileName = void 0;
+exports.profileState = void 0;
 
-var profileName = function profileName(state) {
-  return state.profile.name;
+var profileState = function profileState(state) {
+  return state.profile;
 };
 
-exports.profileName = profileName;
+exports.profileState = profileState;

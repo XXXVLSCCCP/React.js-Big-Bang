@@ -1,6 +1,6 @@
-import { CHANGE_NAME } from "./profileTypes";
+import { SET_PROFILE } from "./profileTypes";
 
-export const changeName = (newName) => ({
-  type: CHANGE_NAME,
-  name: newName,
+export const setProfile = (payload) => ({
+  type: SET_PROFILE,
+  payload,
 });
