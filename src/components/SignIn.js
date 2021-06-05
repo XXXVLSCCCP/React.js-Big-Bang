@@ -14,7 +14,18 @@ import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../store/profile/profileSlice";
-import { useState } from "react";
+import { useState, useSelector } from "react";
+import { Redirect } from "react-router-dom";
+
+async function loginUser(credentials) {
+  return fetch("http://localhost:3000/signin", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(credentials),
+  }).then((data) => data.json());
+}
 
 function Copyright() {
   return (
@@ -53,14 +64,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn({ setToken }) {
   const classes = useStyles();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [formValid, setFormValid] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -98,8 +108,16 @@ function SignIn() {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    const token = await loginUser({
+      email,
+      password,
+    });
+    setToken(token);
+  };
+
+  const loggedIn = (e) => {
     dispatch(
       login({
         email: email,
@@ -107,6 +125,8 @@ function SignIn() {
         loggedIn: true,
       })
     );
+    setPassword("");
+    setEmail("");
   };
 
   return (
@@ -120,6 +140,7 @@ function SignIn() {
           Sign in
         </Typography>
         <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+          {emailError && <div style={{ color: "red" }}>{emailError}</div>}
           <TextField
             variant="outlined"
             margin="normal"
@@ -133,6 +154,7 @@ function SignIn() {
             value={email}
             onChange={(e) => emailHandler(e)}
           />
+          {passwordError && <div style={{ color: "red" }}>{passwordError}</div>}
           <TextField
             variant="outlined"
             margin="normal"
@@ -156,15 +178,11 @@ function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => loggedIn(e)}
           >
             Sign In
           </Button>
           <Grid container justify="flex-end">
-            {/*          <Grid item xs>
-              <Link href="#" className={classes.link}>
-                Forgot password?
-              </Link>
-            </Grid> */}
             <Grid item>
               <Link to={`/signup`} className={classes.link}>
                 Don't have an account? Sign Up

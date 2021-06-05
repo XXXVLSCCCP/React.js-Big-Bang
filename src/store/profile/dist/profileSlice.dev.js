@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = exports.selectProfile = exports.logout = exports.login = exports.profileSlice = void 0;
+exports["default"] = exports.logout = exports.login = exports.profileSlice = void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
@@ -25,13 +25,9 @@ exports.profileSlice = profileSlice;
 var _profileSlice$actions = profileSlice.actions,
     login = _profileSlice$actions.login,
     logout = _profileSlice$actions.logout;
+/* export const selectProfile = (state) => state.root.profile; */
+
 exports.logout = logout;
 exports.login = login;
-
-var selectProfile = function selectProfile(state) {
-  return state.profile.profile;
-};
-
-exports.selectProfile = selectProfile;
 var _default = profileSlice.reducer;
 exports["default"] = _default;

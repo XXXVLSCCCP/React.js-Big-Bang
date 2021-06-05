@@ -11,25 +11,12 @@ var _profileSlice = _interopRequireDefault(require("./profile/profileSlice"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-/* import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
-import profileReducer from "./profile/profileReducer";
-import usersReducer from "./users/usersReducer"; */
-
-/* const rootReducer = combineReducers({
-  profile: profileReducer,
-  users: usersReducer,
+var rootReducer = (0, _toolkit.combineReducers)({
+  profile: _profileSlice["default"]
 });
-
-export const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
- */
 var store = (0, _toolkit.configureStore)({
   reducer: {
-    name: _profileSlice["default"]
+    root: rootReducer
   }
 });
 exports.store = store;

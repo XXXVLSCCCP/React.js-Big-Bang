@@ -17,6 +17,6 @@ export const profileSlice = createSlice({
 
 export const { login, logout } = profileSlice.actions;
 
-export const selectProfile = (state) => state.profile.profile;
+/* export const selectProfile = (state) => state.root.profile; */
 
 export default profileSlice.reducer;

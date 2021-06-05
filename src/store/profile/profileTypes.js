@@ -1,1 +1,0 @@
-export const SET_PROFILE = "PROFILE::SET_PROFILE";
