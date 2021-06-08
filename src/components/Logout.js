@@ -23,7 +23,7 @@ const theme = createMuiTheme({
 const Logout = () => {
   const classes = useStyles();
 
-  const { profile } = useSelector((state) => state.root.profile);
+  /*   const { profile } = useSelector((state) => state.profile.profile); */
 
   const dispatch = useDispatch();
 

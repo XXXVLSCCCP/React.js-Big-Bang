@@ -9,14 +9,21 @@ var _toolkit = require("@reduxjs/toolkit");
 
 var _profileSlice = _interopRequireDefault(require("./profile/profileSlice"));
 
+var _usersSlice = _interopRequireDefault(require("./profile/usersSlice"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var rootReducer = (0, _toolkit.combineReducers)({
-  profile: _profileSlice["default"]
+var middleware = (0, _toolkit.getDefaultMiddleware)({
+  immutableCheck: false,
+  serializableCheck: false,
+  thunk: true
 });
 var store = (0, _toolkit.configureStore)({
   reducer: {
-    root: rootReducer
-  }
+    profile: _profileSlice["default"],
+    users: _usersSlice["default"]
+  },
+  middleware: middleware,
+  devTools: true
 });
 exports.store = store;

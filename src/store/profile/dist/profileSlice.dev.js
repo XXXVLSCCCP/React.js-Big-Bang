@@ -1,16 +1,20 @@
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
-  value: true
+  value: true,
 });
-exports["default"] = exports.logout = exports.login = exports.profileSlice = void 0;
+exports["default"] =
+  exports.logout =
+  exports.login =
+  exports.profileSlice =
+    void 0;
 
 var _toolkit = require("@reduxjs/toolkit");
 
 var profileSlice = (0, _toolkit.createSlice)({
   name: "profile",
   initialState: {
-    profile: null
+    profile: null,
   },
   reducers: {
     login: function login(state, action) {
@@ -18,14 +22,13 @@ var profileSlice = (0, _toolkit.createSlice)({
     },
     logout: function logout(state) {
       state.profile = null;
-    }
-  }
+    },
+  },
 });
 exports.profileSlice = profileSlice;
 var _profileSlice$actions = profileSlice.actions,
-    login = _profileSlice$actions.login,
-    logout = _profileSlice$actions.logout;
-/* export const selectProfile = (state) => state.root.profile; */
+  login = _profileSlice$actions.login,
+  logout = _profileSlice$actions.logout;
 
 exports.logout = logout;
 exports.login = login;

@@ -1,12 +1,18 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import profileReducer from "./profile/profileSlice";
+import usersReducer from "./profile/usersSlice";
 
-const rootReducer = combineReducers({
-  profile: profileReducer,
+const middleware = getDefaultMiddleware({
+  immutableCheck: false,
+  serializableCheck: false,
+  thunk: true,
 });
 
 export const store = configureStore({
   reducer: {
-    root: rootReducer,
+    profile: profileReducer,
+    users: usersReducer,
   },
+  middleware: middleware,
+  devTools: true,
 });

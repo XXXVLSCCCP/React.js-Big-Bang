@@ -10,6 +10,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
 import { API } from "../utils/constants";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsers, setUsers } from "../store/profile/usersSlice";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -41,20 +43,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Users() {
   const classes = useStyles();
-  /*   const dispatch = useDispatch();
-   */
+  /*   const dispatch = useDispatch(); */
+
   const [users, setUsers] = useState([]);
-
-  /*   const users = useSelector((state) => state.users);
-  console.log(users);
-
-  const requestUsers = () => {
-    dispatch(getUsers());
-  };*/
-
-  useEffect(() => {
-    getUsers();
-  }, []);
 
   const getUsers = async () => {
     await fetch(API)
@@ -62,6 +53,12 @@ export default function Users() {
       .then((receivedUsers) => setUsers(receivedUsers));
   };
 
+  /*   const { users } = useSelector((state) => state.users.users);
+  console.log(users); */
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   return (
     <>
       <Container className={classes.cardGrid} maxWidth="md">

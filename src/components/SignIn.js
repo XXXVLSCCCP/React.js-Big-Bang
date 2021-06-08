@@ -16,16 +16,7 @@ import { useDispatch } from "react-redux";
 import { login } from "../store/profile/profileSlice";
 import { useState, useSelector } from "react";
 import { Redirect } from "react-router-dom";
-
-async function loginUser(credentials) {
-  return fetch("http://localhost:3000/signin", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(credentials),
-  }).then((data) => data.json());
-}
+import { Auth } from "../utils/API";
 
 function Copyright() {
   return (
@@ -74,20 +65,6 @@ function SignIn({ setToken }) {
 
   const dispatch = useDispatch();
 
-  /*   const sendUserData = async (url, userData) => {
-    const response = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (!response.ok) {
-      throw new Error(`Error ${url}, status ${response}`);
-    }
-    return await response.json();
-  }; */
-
   const emailHandler = (e) => {
     setEmail(e.target.value);
     const re =
@@ -110,7 +87,7 @@ function SignIn({ setToken }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const token = await loginUser({
+    const token = await Auth({
       email,
       password,
     });

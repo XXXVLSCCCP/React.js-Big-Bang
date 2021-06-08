@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MenuAppBar() {
-  const profile = useSelector((state) => state.root.profile);
+  const profile = useSelector((state) => state.profile.profile);
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -77,7 +77,7 @@ export default function MenuAppBar() {
             >
               <AccountCircle />
             </IconButton>
-            {profile ? (
+            {!profile ? (
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
