@@ -12,6 +12,11 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../store/profile/profileSlice";
+import { useState, useSelector } from "react";
+import { Redirect } from "react-router-dom";
+import { Auth } from "../utils/API";
 
 function Copyright() {
   return (
@@ -50,12 +55,56 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignIn() {
+function SignIn({ setToken }) {
   const classes = useStyles();
 
-  const res = fetch("https://jsonplaceholder.typicode.com/users")
-    .then((response) => response.json())
-    .then((json) => console.log(json));
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+
+  const dispatch = useDispatch();
+
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+    const re =
+      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    if (!re.test(String(email).toLowerCase())) {
+      setEmailError("Неккоректный e-mail");
+    } else {
+      setEmailError("");
+    }
+  };
+
+  const passwordHandler = (e) => {
+    setPassword(e.target.value);
+    if (e.target.value.length < 3 || e.target.value.length > 8) {
+      setPasswordError("Пароль должен содержать от 3 до 8 символов");
+    } else {
+      setPasswordError("");
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const token = await Auth({
+      email,
+      password,
+    });
+    setToken(token);
+  };
+
+  const loggedIn = (e) => {
+    dispatch(
+      login({
+        email: email,
+        password: password,
+        loggedIn: true,
+      })
+    );
+    setPassword("");
+    setEmail("");
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -67,7 +116,8 @@ function SignIn() {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={(e) => handleSubmit(e)}>
+          {emailError && <div style={{ color: "red" }}>{emailError}</div>}
           <TextField
             variant="outlined"
             margin="normal"
@@ -78,7 +128,10 @@ function SignIn() {
             name="email"
             autoComplete="email"
             autoFocus
+            value={email}
+            onChange={(e) => emailHandler(e)}
           />
+          {passwordError && <div style={{ color: "red" }}>{passwordError}</div>}
           <TextField
             variant="outlined"
             margin="normal"
@@ -89,6 +142,8 @@ function SignIn() {
             type="password"
             id="password"
             autoComplete="current-password"
+            value={password}
+            onChange={(e) => passwordHandler(e)}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -100,15 +155,11 @@ function SignIn() {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={(e) => loggedIn(e)}
           >
             Sign In
           </Button>
           <Grid container justify="flex-end">
-            {/*          <Grid item xs>
-              <Link href="#" className={classes.link}>
-                Forgot password?
-              </Link>
-            </Grid> */}
             <Grid item>
               <Link to={`/signup`} className={classes.link}>
                 Don't have an account? Sign Up

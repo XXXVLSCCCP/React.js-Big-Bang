@@ -5,18 +5,25 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.store = void 0;
 
-var _redux = require("redux");
+var _toolkit = require("@reduxjs/toolkit");
 
-var _reduxDevtoolsExtension = require("redux-devtools-extension");
+var _profileSlice = _interopRequireDefault(require("./profile/profileSlice"));
 
-var _reduxThunk = _interopRequireDefault(require("redux-thunk"));
-
-var _profileReducer = _interopRequireDefault(require("./profile/profileReducer"));
+var _usersSlice = _interopRequireDefault(require("./profile/usersSlice"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var rootReducer = (0, _redux.combineReducers)({
-  profile: _profileReducer["default"]
+var middleware = (0, _toolkit.getDefaultMiddleware)({
+  immutableCheck: false,
+  serializableCheck: false,
+  thunk: true
 });
-var store = (0, _redux.createStore)(rootReducer, (0, _reduxDevtoolsExtension.composeWithDevTools)((0, _redux.applyMiddleware)(_reduxThunk["default"])));
+var store = (0, _toolkit.configureStore)({
+  reducer: {
+    profile: _profileSlice["default"],
+    users: _usersSlice["default"]
+  },
+  middleware: middleware,
+  devTools: true
+});
 exports.store = store;

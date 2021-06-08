@@ -1,18 +1,16 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
-/* import MenuIcon from "@material-ui/icons/Menu"; */
 import AccountCircle from "@material-ui/icons/AccountCircle";
-/* import Switch from "@material-ui/core/Switch"; */
-/* import FormControlLabel from "@material-ui/core/FormControlLabel"; */
 import LanguageTwoToneIcon from "@material-ui/icons/LanguageTwoTone";
-import FormGroup from "@material-ui/core/FormGroup";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
-import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,15 +34,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function MenuAppBar() {
+  const profile = useSelector((state) => state.profile.profile);
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
-  /*   const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
- */
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -55,18 +49,6 @@ export default function MenuAppBar() {
 
   return (
     <div className={classes.root}>
-      <FormGroup>
-        {/*        <FormControlLabel
-          control={
-            <Switch
-              checked={auth}
-              onChange={handleChange}
-              aria-label="login switch"
-            />
-          }
-          label={auth ? "Logout" : "Login"}
-        /> */}
-      </FormGroup>
       <AppBar position="static">
         <Toolbar>
           <Link to={`/`} className={classes.link}>
@@ -85,17 +67,17 @@ export default function MenuAppBar() {
               Найти собеседника
             </Link>
           </Typography>
-          {auth && (
-            <div>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
+          <div>
+            <IconButton
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleMenu}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
+            {!profile ? (
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
@@ -114,17 +96,35 @@ export default function MenuAppBar() {
                 <Link to={`/signup`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Sign up</MenuItem>
                 </Link>
-
                 <Link to={`/signin`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Sign in</MenuItem>
                 </Link>
-
+              </Menu>
+            ) : (
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+                open={open}
+                onClose={handleClose}
+              >
                 <Link to={`/profile`} className={classes.link}>
                   <MenuItem onClick={handleClose}>Profile</MenuItem>
                 </Link>
+                <Link to={`/signin`} className={classes.link}>
+                  <MenuItem onClick={handleClose}>Log out</MenuItem>
+                </Link>
               </Menu>
-            </div>
-          )}
+            )}
+          </div>
         </Toolbar>
       </AppBar>
     </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
@@ -8,6 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { Link } from "react-router-dom";
+import { API } from "../utils/constants";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchUsers, setUsers } from "../store/profile/usersSlice";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -37,38 +41,53 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const cards = [1, 2, 3, 4, 5, 6];
-
 export default function Users() {
   const classes = useStyles();
+  /*   const dispatch = useDispatch(); */
+
+  const [users, setUsers] = useState([]);
+
+  const getUsers = async () => {
+    await fetch(API)
+      .then((response) => response.json())
+      .then((receivedUsers) => setUsers(receivedUsers));
+  };
+
+  /*   const { users } = useSelector((state) => state.users.users);
+  console.log(users); */
+
+  useEffect(() => {
+    getUsers();
+  }, []);
   return (
     <>
       <Container className={classes.cardGrid} maxWidth="md">
-        {/* End hero unit */}
         <Grid container spacing={4}>
-          {cards.map((card) => (
-            <Grid item key={card} xs={12} sm={6} md={4}>
+          {users.map((card) => (
+            <Grid item key={card.id} xs={12} sm={6} md={4}>
               <Card className={classes.card}>
                 <CardMedia
                   className={classes.cardMedia}
-                  image="https://source.unsplash.com/random"
+                  image={card.avatar_url}
                   title="Image title"
                 />
                 <CardContent className={classes.cardContent}>
                   <Typography gutterBottom variant="h5" component="h2">
-                    Heading
+                    {card.login}
                   </Typography>
-                  <Typography>
-                    This is a media card. You can use this section to describe
-                    the content.
-                  </Typography>
+                  <Typography>{card.html_url}</Typography>
                 </CardContent>
                 <CardActions>
                   <Button size="small" color="primary">
-                    View
-                  </Button>
-                  <Button size="small" color="primary">
-                    Edit
+                    <Link
+                      to={{
+                        pathname: `/users/:id${card.id}`,
+                        userName: `${card.id}`,
+                      }}
+                      className={classes.link}
+                    >
+                      More
+                    </Link>
                   </Button>
                 </CardActions>
               </Card>
